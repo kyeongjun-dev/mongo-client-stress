@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-client-stress
+  labels:
+    app: mongo-client-stress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-client-stress
+  template:
+    metadata:
+      labels:
+        app: mongo-client-stress
+    spec:
+      containers:
+      - name: mongo-client-stress
+        image: rudwns273/mongo-client-stress:latest
+        env:
+        - name: MONGO_URL
+          value: "mongodb://<ID>:<PASSWORD>@mongodb-svc.mongodb.svc.cluster.local:27017/?authSource=company&readPreference=secondary"
+        - name: MONGO_DB_NAME
+          value: "company"
+        - name: MONGO_COLLECTION_NAME
+          value: "employees"
+        - name: QUERY_TIME_INTERVAL
+          value: "1"
+        - name: COLLECTION_SIZE
+          value: "1000000"
