@@ -42,10 +42,12 @@ if __name__ == '__main__':
         try:
             result = collection.find({}).explain()
             if result['executionStats']['executionSuccess'] == True:
-                print('Query Success', 'reeturn:', result['executionStats']['nReturned'], result['serverInfo']['host'])
+                #print('Query Success', 'reeturn:', result['executionStats']['nReturned'], result['serverInfo']['host'])
                 if result['executionStats']['nReturned'] != COLLECTION_SIZE:
                     print(f'retunred not {COLLECTION_SIZE}')
                     print('Query Success', 'reeturn:', result['executionStats']['nReturned'], result['serverInfo']['host'])
+                    print(client.admin.command('replSetGetStatus'))
+                    print()
                     break
             else:
                 print('Query Failed')
@@ -53,5 +55,6 @@ if __name__ == '__main__':
                 print()
         except Exception as e:
             print(e)
+            print(client.admin.command('replSetGetStatus'))
             print()
         time.sleep(QUERY_TIME_INTERVAL)
