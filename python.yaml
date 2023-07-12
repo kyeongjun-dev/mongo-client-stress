@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: mongo-client-stress
-        image: rudwns273/mongo-client-stress:latest
+        image: rudwns273/mongo-client-stress:log-error
         env:
         - name: MONGO_URL
           value: "mongodb://<ID>:<PASSWORD>@mongodb-svc.mongodb.svc.cluster.local:27017/?authSource=company&readPreference=secondary"
